@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}System State Overview - Admin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="admin-dashboard-section">
+        <h3><i class="fas fa-database"></i> System State Overview</h3>
+        <p class="mb-4">Full snapshot of all users, accounts, transactions, policies, and claims.</p>
+        <h5>Users</h5>
+        <table class="admin-table">
+            <tr><th>ID</th><th>Username</th><th>Email</th><th>First Name</th><th>Last Name</th></tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h5>Accounts</h5>
+        <table class="admin-table">
+            <tr><th>ID</th><th>Account Number</th><th>Type</th><th>Balance</th><th>User</th></tr>
+            {% for acc in accounts %}
+            <tr>
+                <td>{{ acc.id }}</td>
+                <td>{{ acc.account_number }}</td>
+                <td>{{ acc.account_type.title() }}</td>
+                <td>${{ "%.2f"|format(acc.balance) }}</td>
+                <td>{{ acc.user.username }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h5>Transactions</h5>
+        <table class="admin-table">
+            <tr><th>ID</th><th>Txn ID</th><th>Type</th><th>Amount</th><th>Account</th><th>Date</th></tr>
+            {% for txn in transactions %}
+            <tr>
+                <td>{{ txn.id }}</td>
+                <td>{{ txn.transaction_id }}</td>
+                <td>{{ txn.transaction_type.title() }}</td>
+                <td>${{ "%.2f"|format(txn.amount) }}</td>
+                <td>{{ txn.account.account_number }}</td>
+                <td>{{ txn.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h5>Insurance Policies</h5>
+        <table class="admin-table">
+            <tr><th>ID</th><th>Policy Number</th><th>Type</th><th>Coverage</th><th>Premium</th><th>User</th></tr>
+            {% for pol in policies %}
+            <tr>
+                <td>{{ pol.id }}</td>
+                <td>{{ pol.policy_number }}</td>
+                <td>{{ pol.policy_type.title() }}</td>
+                <td>${{ "%.2f"|format(pol.coverage_amount) }}</td>
+                <td>${{ "%.2f"|format(pol.premium_amount) }}</td>
+                <td>{{ pol.user.username }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h5>Insurance Claims</h5>
+        <table class="admin-table">
+            <tr><th>ID</th><th>Claim Number</th><th>Policy</th><th>Amount</th><th>Status</th><th>Date</th></tr>
+            {% for cl in claims %}
+            <tr>
+                <td>{{ cl.id }}</td>
+                <td>{{ cl.claim_number }}</td>
+                <td>{{ cl.policy.policy_number }}</td>
+                <td>${{ "%.2f"|format(cl.claim_amount) }}</td>
+                <td>{{ cl.status.title() }}</td>
+                <td>{{ cl.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %} 

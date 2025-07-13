@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Accounts - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">
+                        <i class="fas fa-university me-2"></i>Manage Accounts
+                    </h2>
+                    <p class="text-muted mb-0">Bank account management and administration</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('admin.export_accounts') }}" class="btn btn-success me-2">
+                        <i class="fas fa-download me-1"></i>Export Accounts
+                    </a>
+                    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accounts Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-table me-2"></i>All Bank Accounts</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Account Number</th>
+                            <th>Owner</th>
+                            <th>Type</th>
+                            <th>Balance</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for account in accounts %}
+                        <tr>
+                            <td>{{ account.id }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-credit-card me-2 text-primary"></i>
+                                    <code>{{ account.account_number }}</code>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user me-2 text-info"></i>
+                                    {{ account.user.username }}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if account.account_type == 'savings' else 'primary' }}">
+                                    {{ account.account_type.title() }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-{{ 'success' if account.balance > 0 else 'danger' }}">
+                                    ${{ "%.2f"|format(account.balance) }}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if account.status == 'active' else 'warning' }}">
+                                    {{ account.status.title() }}
+                                </span>
+                            </td>
+                            <td>{{ account.created_at.strftime('%b %d, %Y') }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ url_for('admin.edit_account', account_id=account.id) }}" 
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="POST" action="{{ url_for('admin.delete_account', account_id=account.id) }}" 
+                                          class="d-inline" onsubmit="return confirm('Are you sure you want to delete this account?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.table th {
+    border-top: none;
+    font-weight: 600;
+}
+
+.btn-group .btn {
+    margin-right: 2px;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+code {
+    background-color: #f8f9fa;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+</style>
+{% endblock %} 

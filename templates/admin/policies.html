@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Policies - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">
+                        <i class="fas fa-shield-alt me-2"></i>Manage Policies
+                    </h2>
+                    <p class="text-muted mb-0">Insurance policies management and administration</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Policies Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-table me-2"></i>All Insurance Policies</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Policy Number</th>
+                            <th>Policyholder</th>
+                            <th>Type</th>
+                            <th>Coverage</th>
+                            <th>Premium</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for policy in policies %}
+                        <tr>
+                            <td>{{ policy.id }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-shield-alt me-2 text-primary"></i>
+                                    <code>{{ policy.policy_number }}</code>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user me-2 text-info"></i>
+                                    {{ policy.user.username }}
+                                    <small class="text-muted ms-1">({{ policy.user.first_name }} {{ policy.user.last_name }})</small>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if policy.policy_type == 'life' else 'primary' if policy.policy_type == 'health' else 'warning' }}">
+                                    {{ policy.policy_type.title() }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-success">
+                                    ${{ "%.2f"|format(policy.coverage_amount) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-info">
+                                    ${{ "%.2f"|format(policy.premium_amount) }}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if policy.status == 'active' else 'warning' }}">
+                                    {{ policy.status.title() }}
+                                </span>
+                            </td>
+                            <td>{{ policy.start_date.strftime('%b %d, %Y') }}</td>
+                            <td>{{ policy.end_date.strftime('%b %d, %Y') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.table th {
+    border-top: none;
+    font-weight: 600;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+code {
+    background-color: #f8f9fa;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+</style>
+{% endblock %} 

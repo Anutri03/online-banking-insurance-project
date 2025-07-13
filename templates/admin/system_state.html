@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block title %}System State - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">
+                        <i class="fas fa-database me-2"></i>System State
+                    </h2>
+                    <p class="text-muted mb-0">Comprehensive system statistics and monitoring</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Overview -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>System Overview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h2 text-primary mb-1">{{ stats.users.total }}</div>
+                                <small class="text-muted">Total Users</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-success">{{ stats.users.active }} Active</span>
+                                    <span class="badge bg-info">{{ stats.users.new_this_month }} New This Month</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h2 text-success mb-1">{{ stats.accounts.total }}</div>
+                                <small class="text-muted">Total Accounts</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-success">{{ stats.accounts.active }} Active</span>
+                                    <span class="badge bg-primary">{{ stats.accounts.savings }} Savings</span>
+                                    <span class="badge bg-info">{{ stats.accounts.checking }} Checking</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h2 text-info mb-1">{{ stats.transactions.total }}</div>
+                                <small class="text-muted">Total Transactions</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-info">{{ stats.transactions.this_month }} This Month</span>
+                                    <span class="badge bg-success">${{ "%.2f"|format(stats.transactions.total_volume) }} Volume</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h2 text-warning mb-1">{{ stats.policies.total }}</div>
+                                <small class="text-muted">Insurance Policies</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-success">{{ stats.policies.active }} Active</span>
+                                    <span class="badge bg-info">${{ "%.2f"|format(stats.policies.total_coverage) }} Coverage</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Statistics -->
+    <div class="row">
+        <!-- Users Statistics -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-users me-2"></i>User Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Users</div>
+                                <div class="stat-value text-primary">{{ stats.users.total }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Active Users</div>
+                                <div class="stat-value text-success">{{ stats.users.active }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">New This Month</div>
+                                <div class="stat-value text-info">{{ stats.users.new_this_month }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Inactive Users</div>
+                                <div class="stat-value text-danger">{{ stats.users.total - stats.users.active }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Statistics -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-university me-2"></i>Account Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Accounts</div>
+                                <div class="stat-value text-primary">{{ stats.accounts.total }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Active Accounts</div>
+                                <div class="stat-value text-success">{{ stats.accounts.active }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Savings Accounts</div>
+                                <div class="stat-value text-info">{{ stats.accounts.savings }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Checking Accounts</div>
+                                <div class="stat-value text-warning">{{ stats.accounts.checking }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Statistics -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Transaction Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Transactions</div>
+                                <div class="stat-value text-primary">{{ stats.transactions.total }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">This Month</div>
+                                <div class="stat-value text-success">{{ stats.transactions.this_month }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Volume</div>
+                                <div class="stat-value text-info">${{ "%.2f"|format(stats.transactions.total_volume) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Avg Transaction</div>
+                                <div class="stat-value text-warning">
+                                    ${{ "%.2f"|format(stats.transactions.total_volume / stats.transactions.total) if stats.transactions.total > 0 else 0 }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insurance Statistics -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Insurance Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Policies</div>
+                                <div class="stat-value text-primary">{{ stats.policies.total }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Active Policies</div>
+                                <div class="stat-value text-success">{{ stats.policies.active }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Coverage</div>
+                                <div class="stat-value text-info">${{ "%.2f"|format(stats.policies.total_coverage) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <div class="stat-label">Pending Claims</div>
+                                <div class="stat-value text-warning">{{ stats.claims.pending }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Claims Statistics -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-file-medical me-2"></i>Claims Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h3 text-primary mb-1">{{ stats.claims.total }}</div>
+                                <small class="text-muted">Total Claims</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h3 text-warning mb-1">{{ stats.claims.pending }}</div>
+                                <small class="text-muted">Pending</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h3 text-success mb-1">{{ stats.claims.approved }}</div>
+                                <small class="text-muted">Approved</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-center">
+                                <div class="h3 text-danger mb-1">{{ stats.claims.rejected }}</div>
+                                <small class="text-muted">Rejected</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.badge {
+    font-size: 0.75em;
+}
+</style>
+{% endblock %} 

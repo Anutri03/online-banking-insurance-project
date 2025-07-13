@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account - DigitalBank{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-custom mt-5">
+                <div class="card-header text-center">
+                    <h3 class="mb-0">
+                        <i class="fas fa-university me-2"></i>Create New Account
+                    </h3>
+                    <p class="text-white-50 mb-0">Choose your account type and get started</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" class="needs-validation" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            {{ form.account_type.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-credit-card"></i>
+                                </span>
+                                {{ form.account_type(class="form-select") }}
+                            </div>
+                            {% if form.account_type.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.account_type.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.initial_deposit.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </span>
+                                {{ form.initial_deposit(class="form-control", placeholder="0.00", step="0.01") }}
+                            </div>
+                            {% if form.initial_deposit.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.initial_deposit.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Optional: Add an initial deposit to your account</div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('routes.banking') }}" class="text-decoration-none">
+                            <i class="fas fa-arrow-left me-1"></i>Back to Banking
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Account Types Info -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <h6 class="card-title text-muted mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Account Types
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <div class="text-center">
+                                        <i class="fas fa-piggy-bank text-success mb-2"></i>
+                                        <h6 class="mb-1">Savings</h6>
+                                        <small class="text-muted">Earn interest on your money</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <div class="text-center">
+                                        <i class="fas fa-credit-card text-primary mb-2"></i>
+                                        <h6 class="mb-1">Checking</h6>
+                                        <small class="text-muted">Daily transactions and payments</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <div class="text-center">
+                                        <i class="fas fa-briefcase text-warning mb-2"></i>
+                                        <h6 class="mb-1">Business</h6>
+                                        <small class="text-muted">For business operations</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form validation
+    const form = document.querySelector('.needs-validation');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        });
+    }
+    
+    // Auto-focus on first field
+    const firstField = document.querySelector('select');
+    if (firstField) {
+        firstField.focus();
+    }
+});
+</script>
+{% endblock %} 

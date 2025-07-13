@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+
+{% block title %}DigitalBank - Modern Banking & Insurance Solutions{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to DigitalBank</h1>
+            <p class="hero-subtitle">Your trusted partner for modern banking and comprehensive insurance solutions</p>
+            <div class="hero-buttons">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('routes.dashboard') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                </a>
+                {% else %}
+                <a href="{{ url_for('routes.register') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-user-plus me-2"></i>Get Started
+                </a>
+                <a href="{{ url_for('routes.login') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-4 fw-bold text-gradient mb-3">Why Choose DigitalBank?</h2>
+                <p class="lead text-muted">Experience the future of banking and insurance with our cutting-edge platform</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="card-title">Secure Banking</h4>
+                        <p class="card-text">State-of-the-art security measures to protect your financial information and transactions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-mobile-alt fa-3x text-success"></i>
+                        </div>
+                        <h4 class="card-title">Mobile First</h4>
+                        <p class="card-text">Access your accounts and manage insurance policies from anywhere, anytime.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-chart-line fa-3x text-warning"></i>
+                        </div>
+                        <h4 class="card-title">Smart Analytics</h4>
+                        <p class="card-text">Get insights into your spending patterns and financial health with advanced analytics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-4 fw-bold text-gradient mb-3">Our Services</h2>
+                <p class="lead text-muted">Comprehensive financial solutions tailored to your needs</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="service-card card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <i class="fas fa-university fa-4x text-primary mb-3"></i>
+                            </div>
+                            <div class="col-md-8">
+                                <h4 class="card-title">Digital Banking</h4>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Savings & Checking Accounts</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Online Money Transfers</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Real-time Transaction Tracking</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Mobile Banking App</li>
+                                </ul>
+                                {% if current_user.is_authenticated %}
+                                <a href="{{ url_for('routes.banking') }}" class="btn btn-primary">Manage Banking</a>
+                                {% else %}
+                                <a href="{{ url_for('routes.register') }}" class="btn btn-primary">Get Started</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="service-card card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <i class="fas fa-shield-alt fa-4x text-success mb-3"></i>
+                            </div>
+                            <div class="col-md-8">
+                                <h4 class="card-title">Insurance Solutions</h4>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Life Insurance</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Health Insurance</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Auto Insurance</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Home Insurance</li>
+                                </ul>
+                                {% if current_user.is_authenticated %}
+                                <a href="{{ url_for('routes.insurance') }}" class="btn btn-success">Manage Insurance</a>
+                                {% else %}
+                                <a href="{{ url_for('routes.register') }}" class="btn btn-success">Get Started</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="stat-card">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h3 class="stat-number">10,000+</h3>
+                    <p class="stat-label">Happy Customers</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="stat-card">
+                    <i class="fas fa-university fa-3x text-success mb-3"></i>
+                    <h3 class="stat-number">$50M+</h3>
+                    <p class="stat-label">Assets Managed</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="stat-card">
+                    <i class="fas fa-shield-alt fa-3x text-warning mb-3"></i>
+                    <h3 class="stat-number">5,000+</h3>
+                    <p class="stat-label">Active Policies</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-4">
+                <div class="stat-card">
+                    <i class="fas fa-clock fa-3x text-info mb-3"></i>
+                    <h3 class="stat-number">24/7</h3>
+                    <p class="stat-label">Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-4 fw-bold text-gradient mb-3">What Our Customers Say</h2>
+                <p class="lead text-muted">Don't just take our word for it</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="testimonial-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="testimonial-avatar mb-3">
+                            <i class="fas fa-user-circle fa-3x text-primary"></i>
+                        </div>
+                        <p class="card-text">"DigitalBank has transformed how I manage my finances. The interface is intuitive and the security gives me peace of mind."</p>
+                        <h6 class="card-title">Sarah Johnson</h6>
+                        <small class="text-muted">Business Owner</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="testimonial-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="testimonial-avatar mb-3">
+                            <i class="fas fa-user-circle fa-3x text-success"></i>
+                        </div>
+                        <p class="card-text">"The insurance platform is incredibly user-friendly. I can easily manage all my policies in one place."</p>
+                        <h6 class="card-title">Michael Chen</h6>
+                        <small class="text-muted">Software Engineer</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="testimonial-card card h-100">
+                    <div class="card-body text-center">
+                        <div class="testimonial-avatar mb-3">
+                            <i class="fas fa-user-circle fa-3x text-warning"></i>
+                        </div>
+                        <p class="card-text">"Excellent customer service and competitive rates. DigitalBank has exceeded all my expectations."</p>
+                        <h6 class="card-title">Emily Rodriguez</h6>
+                        <small class="text-muted">Marketing Manager</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-gradient-primary text-white">
+    <div class="container text-center">
+        <h2 class="display-4 fw-bold mb-3">Ready to Get Started?</h2>
+        <p class="lead mb-4">Join thousands of satisfied customers who trust DigitalBank with their financial future.</p>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('routes.dashboard') }}" class="btn btn-light btn-lg">
+            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+        </a>
+        {% else %}
+        <a href="{{ url_for('routes.register') }}" class="btn btn-light btn-lg me-3">
+            <i class="fas fa-user-plus me-2"></i>Create Account
+        </a>
+        <a href="{{ url_for('routes.login') }}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-sign-in-alt me-2"></i>Login
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.feature-icon {
+    color: var(--primary-color);
+}
+
+.service-card {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card {
+    padding: 2rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.testimonial-card {
+    transition: var(--transition);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.testimonial-avatar {
+    color: var(--primary-color);
+}
+
+.hero-buttons .btn {
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %} 
