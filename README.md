@@ -1,6 +1,6 @@
 # Online Banking & Insurance System
 
-An advanced web application for online banking and insurance management built with Python, Flask, and SQLAlchemy.
+An  web application for online banking and insurance management built with Python, Flask, and SQLAlchemy.
 
 ## Features
 
@@ -44,7 +44,7 @@ An advanced web application for online banking and insurance management built wi
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/online-banking-insurance.git
+git clone https://github.com/Anutri03/online-banking-insurance.git
 cd online-banking-insurance
 ```
 
